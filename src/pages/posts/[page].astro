@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Pagination from "../../components/Pagination.astro";
+import MarkdownRenderer from "../../components/MarkdownRenderer.astro";
+import postService from "../../services/post/post";
+
+export async function getStaticPaths() {
+  // Get the first page to determine total number of pages
+  const { data } = await postService.getPosts(1, 10);
+
+  // Generate paths for each page
+  return data.map((data, i) => ({
+    params: { page: data.id },
+    props: {
+      title: data.title,
+      subtitle: data.subtitle,
+      content: data.content,
+    },
+  }));
+}
+
+const { content, subtitle, title } = Astro.props;
+---
+
+<Layout title="Blog Posts">
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-2">{title}</h1>
+    <h2 class="text-xl text-gray-600 mb-4">{subtitle}</h2>
+    <div class="space-y-8">
+      <article class="bg-white rounded-lg shadow-md p-6">
+        <MarkdownRenderer content={content} />
+      </article>
+    </div>
+  </main>
+</Layout>

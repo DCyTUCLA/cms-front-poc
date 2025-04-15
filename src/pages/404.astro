@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="404 - Page Not Found">
+  <main
+    class="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden relative"
+  >
+    <!-- Animated background -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div
+        class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] animate-[gridMove_20s_linear_infinite]"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] animate-[gridMove_20s_linear_infinite] [animation-delay:-10s]"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div
+      class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4"
+    >
+      <div class="text-center space-y-8 max-w-2xl">
+        <div class="relative">
+          <h1
+            class="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 animate-[fadeInUp_0.8s_ease-out]"
+          >
+            404
+          </h1>
+          <div
+            class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+          >
+          </div>
+        </div>
+
+        <h2
+          class="text-4xl font-semibold animate-[fadeInUp_0.8s_ease-out_0.2s_both]"
+        >
+          Page Not Found
+        </h2>
+        <p
+          class="text-xl text-gray-400 animate-[fadeInUp_0.8s_ease-out_0.4s_both]"
+        >
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+
+        <div
+          class="flex justify-center space-x-4 pt-8 animate-[fadeInUp_0.8s_ease-out_0.6s_both]"
+        >
+          <a
+            href="/"
+            class="relative px-6 py-3 rounded-lg font-semibold overflow-hidden bg-blue-500 text-white group"
+          >
+            <span class="relative z-10">Go Home</span>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
+            >
+            </div>
+          </a>
+          <a
+            href="/posts"
+            class="relative px-6 py-3 rounded-lg font-semibold overflow-hidden bg-gray-700 text-white group"
+          >
+            <span class="relative z-10">View Posts</span>
+            <div
+              class="absolute inset-0 bg-gray-800 rounded-lg transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
+            >
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @import "tailwindcss";
+
+  @keyframes gridMove {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(40px, 40px);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

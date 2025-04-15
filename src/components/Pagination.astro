@@ -1,0 +1,101 @@
+---
+interface Props {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+  baseUrl: string;
+}
+
+const { pagination, baseUrl } = Astro.props;
+const { page, pageCount } = pagination;
+
+// Generate array of page numbers to display
+const getPageNumbers = () => {
+  const delta = 2; // How many pages to show on each side of current page
+  const range = [];
+
+  for (
+    let i = Math.max(2, page - delta);
+    i <= Math.min(pageCount - 1, page + delta);
+    i++
+  ) {
+    range.push(i);
+  }
+
+  if (page - delta > 2) {
+    range.unshift("...");
+  }
+  if (page + delta < pageCount - 1) {
+    range.push("...");
+  }
+
+  range.unshift(1);
+  if (pageCount > 1) {
+    range.push(pageCount);
+  }
+
+  return range;
+};
+
+const pages = getPageNumbers();
+---
+
+<nav aria-label="Pagination" class="flex justify-center my-8">
+  <ul class="flex items-center gap-1">
+    <!-- Previous button -->
+    <li>
+      <a
+        href={page === 1 ? "#" : `${baseUrl}/${page - 1}`}
+        class={`px-3 py-2 rounded-lg ${
+          page === 1
+            ? "text-gray-400 cursor-not-allowed"
+            : "text-blue-600 hover:bg-blue-100"
+        }`}
+        aria-disabled={page === 1}
+      >
+        Previous
+      </a>
+    </li>
+
+    <!-- Page numbers -->
+    {
+      pages.map((pageNum) => (
+        <li>
+          {pageNum === "..." ? (
+            <span class="px-3 py-2">...</span>
+          ) : (
+            <a
+              href={pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`}
+              class={`px-3 py-2 rounded-lg ${
+                page === pageNum
+                  ? "bg-blue-600 text-white"
+                  : "text-blue-600 hover:bg-blue-100"
+              }`}
+              aria-current={page === pageNum ? "page" : undefined}
+            >
+              {pageNum}
+            </a>
+          )}
+        </li>
+      ))
+    }
+
+    <!-- Next button -->
+    <li>
+      <a
+        href={page === pageCount ? "#" : `${baseUrl}/${page + 1}`}
+        class={`px-3 py-2 rounded-lg ${
+          page === pageCount
+            ? "text-gray-400 cursor-not-allowed"
+            : "text-blue-600 hover:bg-blue-100"
+        }`}
+        aria-disabled={page === pageCount}
+      >
+        Next
+      </a>
+    </li>
+  </ul>
+</nav>
